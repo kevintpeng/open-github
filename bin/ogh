@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require_relative '../lib/open-github'
+
+match = OpenGitHub.parse(OpenGitHub.remote)
+system "open https://#{match[4]}/#{match[5]}/#{match[6]}"
