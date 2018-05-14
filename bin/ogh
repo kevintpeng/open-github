@@ -11,5 +11,9 @@ else
     system "open #{OpenGit::Open.github ARGV[0]}"
   rescue OpenGit::Git::NoGitRepoError
     puts "ogh: No git repo found. Please use ogh in a git repo."
+  rescue OpenGit::Git::NoRemoteError
+    puts "opr: No git remote found. Setup a git remote before using opr."
+  rescue OpenGit::Git::InvalidRemoteError
+    puts "opr: could not find specified remote."
   end
 end

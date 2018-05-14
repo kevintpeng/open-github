@@ -6,6 +6,9 @@ module OpenGit
     class InvalidRemoteError < StandardError
     end
 
+    class NoRemoteError < StandardError
+    end
+
     # asserting that rest of git commands will work
     def self.is_git_repo
       # only returns true if in git repo and not in the .git folder itself
@@ -26,6 +29,7 @@ module OpenGit
 
     def self.remote
       lines = `git remote`.lines
+      raise OpenGit::Git::NoRemoteError if lines.size == 0
       lines[-1].strip
     end
 
