@@ -1,5 +1,15 @@
 #!/usr/bin/env ruby
-require_relative '../lib/open-github'
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
-match = OpenGitHub.parse(OpenGitHub.url)
-system "open https://#{match[:domain]}/#{match[:org]}/#{match[:repo]}"
+require 'rubygems'
+require 'open_git'
+
+if ARGV.size > 1
+  puts "usage: ogh [<branch>]"
+else
+  begin
+    system "open #{OpenGit::Open.github ARGV[0]}"
+  rescue OpenGit::Git::NoGitRepoError
+    puts "ogh: No git repo found. Please use ogh in a git repo."
+  end
+end
