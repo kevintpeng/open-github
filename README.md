@@ -10,5 +10,8 @@ opr [<remote>]
 ogh [<remote>]
 ```
 
+![demo gif](https://i.imgur.com/MNnGs2u.gif)
+
 ### Installation
 To install the commands: `gem install open_git`
+
