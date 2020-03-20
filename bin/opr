@@ -3,17 +3,31 @@ $LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'rubygems'
 require 'open_git'
+require 'English'
 
 if ARGV.size > 1
   puts "usage: opr [<branch>]"
 else
   begin
-    system "open #{OpenGit::Open.github_pull_request ARGV[0]}"
+    if OpenGit::Git.upstream == ""
+      output = `git push --set-upstream #{OpenGit::Git.remote} #{OpenGit::Git.branch}`
+      if $CHILD_STATUS != 0
+        puts "opr: Error trying to push new branch to remote."
+        puts output
+        exit
+      end
+      system "open #{OpenGit::Open.github_new_pull_request ARGV[0]}"
+    else
+      # upstream has been set and a pull request may already exist
+      system "open #{OpenGit::Open.github_pull_request ARGV[0]}"
+    end
   rescue OpenGit::Git::NoGitRepoError
     puts "opr: No git repo found. Please use opr in a git repo."
   rescue OpenGit::Git::NoRemoteError
     puts "opr: No git remote found. Setup a git remote before using opr."
   rescue OpenGit::Git::InvalidRemoteError
     puts "opr: could not find specified remote."
+  rescue StandardError => e
+    puts "opr: unexpected internal error."
   end
 end
