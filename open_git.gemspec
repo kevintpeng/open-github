@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'open_git'
-  s.version     = '0.1.0'
+  s.version     = '0.2.0'
   s.date        = '2020-03-20'
   s.description     = "Command line utility for opening web pages for repository management services"
   s.summary     = "Command line utility for opening a repository's remote web page on github-style repository management services and for opening pull requests using the corresponding web interface"

@@ -12,5 +12,8 @@ module OpenGit
       "#{self.github(remote)}/pull/#{OpenGit::Git.branch}"
     end
 
+    def self.github_new_pull_request(remote = nil)
+      "#{self.github(remote)}/pull/new/#{OpenGit::Git.branch}"
+    end
   end
 end

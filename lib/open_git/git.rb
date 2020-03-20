@@ -34,7 +34,14 @@ module OpenGit
     end
 
     def self.branch
-      return `git rev-parse --abbrev-ref HEAD`.strip
+      `git rev-parse --abbrev-ref HEAD`.strip
+    end
+    
+    def self.upstream
+      up = `git rev-parse --abbrev-ref --symbolic-full-name @{u}`.strip
+      # ignore output if error code 128, no upstream error
+      up = '' if $CHILD_STATUS == 128
+      up
     end
   end
 end
